@@ -1,0 +1,9 @@
+<% if @first_visit || current_user.nil? %>
+  <div> First visit!</div>
+<% end %>
+
+<div class="container-techgets">
+  <% @techgets.each do |techget| %>
+    <%= techget.name %> <br>
+  <% end %>
+</div>
