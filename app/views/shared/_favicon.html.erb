@@ -1,0 +1,8 @@
+<%= favicon_link_tag asset_path('logo-144x144.png') %>
+<% %w(20 57 72 114 144).each do |size| %>
+  <%= favicon_link_tag "logo-#{size}x#{size}.png", rel: 'apple-touch-icon', type: 'image/png', sizes: "#{size}x#{size}" %>
+<% end %>
+
+<% %w(20 57).each do |size| %>
+  <%= favicon_link_tag "logo-#{size}x#{size}.png", rel: 'icon', type: 'image/png', sizes: "#{size}x#{size}" %>
+<% end %>

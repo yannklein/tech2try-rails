@@ -1,10 +1,24 @@
 <% if @first_visit || current_user.nil? %>
-  <div> First visit!</div>
+  <div class="card-welcome-container">
+    <div class="card-welcome" style="background-image: url('https://www.yannklein.me/tech2try/img/headerBackground.jpg')">
+      <div class="button-text-light-blue button-delete close-welcome">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      <div class="card-welcome-info">
+        <div class="card-welcome-text">
+          <h1 class="mobile">Welcome!</h1>
+          <h1 class="desktop"> Welcome! Get ready to beta test the latest tech trends</h1>
+          <p>Tech2try is a space to <span class="blue">meet tech's & makers</span> and <span class="orange">try cool devices</span> around you.</p>
+        </div>
+        <%= link_to 'Share your first device', "#", class: 'btn btn-lg button-orange' %>
+      </div>
+    </div>
+  </div>
+  <div id="map" data-center='48.85,2.35' data-icon='<%= asset_path('marker.png') %>' ></div>
+<% else %>
+  <div id="map" data-center='<%= current_user.lat %>,<%= current_user.long %>' data-icon='<%= asset_path('marker.png') %>' ></div>
 <% end %>
 
-<div class="container-techgets">
-  <% @techgets.each do |techget| %>
-    <%= techget.name %> <br>
-  <% end %>
-  <div id="map"></div>
-</div>
+<script>
+
+</script>

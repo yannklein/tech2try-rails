@@ -1,0 +1,5 @@
+meta_product_name: "Tech2try"
+meta_title: "Tech2try - Share your tech devices"
+meta_description: "A space to meet tech euthusiasts & makers and try cool devices around you"
+meta_image: "logo-144x144.png" # should exist in `app/assets/images/`
+twitter_account: "@yannlucklein"   # required for Twitter Cards

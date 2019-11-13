@@ -1,0 +1,80 @@
+@import url(https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css);
+
+#map {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  z-index: -2;
+}
+
+.marker {
+  background-size: cover;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.marker-gadget {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
+  justify-content: center;
+}
+
+.marker-gadget-info {
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  background-size: cover;
+  background-position: center;
+  padding: 16px;
+  height: 120px;
+  width: 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  p {
+    border-radius: 4px;
+    margin: 0;
+    color: rgb(240,240,240);
+    text-shadow: 0 0 4px rgba(240,240,240,0.2);
+    font-size: 16px;
+    background-color: rgba(0,0,0,0.5);
+    padding: 4px;
+  }
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+    border-bottom-color: $blue-50;
+    }
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+    border-top-color: $blue-50;
+    }
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: $blue-50;
+    }
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: $blue-50;
+    }
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  background-color: $blue-50;
+  h3 {
+    color: white;
+    text-shadow: 0 0 4px rgba(0,0,0,0.7)
+  }
+}
+
+.mapboxgl-popup-close-button {
+  color: white;
+  font-size: 24px;
+  padding: 10px;
+}
+

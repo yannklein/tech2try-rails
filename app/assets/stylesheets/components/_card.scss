@@ -1,0 +1,93 @@
+h1.mobile {
+  display: none;
+}
+
+.button-delete {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.card-welcome-container {
+  padding: 16px;
+  position: absolute;
+  top: 74px;
+  width: 100%;
+}
+
+.card-welcome {
+  position: relative;
+  width: 100%;
+  padding: 120px 40px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  background-position: 50% 80%;
+  .card-welcome-info {
+    width: 100%;
+    text-align: center;
+    .card-welcome-text {
+      margin-bottom: 32px;
+      h1 {
+        color: white;
+      }
+      h1.mobile {
+        display: none;
+      }
+      p {
+        color: white;
+        font-size: 24px;
+      }
+
+      a {
+        color: rgba(170,170,170,1);
+      }
+    }
+  }
+}
+
+@media screen and (max-width:800px) {
+  .card-welcome {
+    display: block;
+    img {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 16px;
+    }
+    .card-welcome-info {
+      margin-left: 0px;
+    }
+  }
+}
+@media screen and (max-width:768px) {
+}
+
+@media screen and (max-width:576px) {
+  .card-welcome {
+    margin: 24px 16px;
+    img {
+      height: 100px;
+    }
+    .card-welcome-info {
+      .card-welcome-text {
+        h1.desktop {
+          display: none;
+        }
+        h1.mobile {
+          display: block;
+        }
+      }
+    }
+    .button-light-blue {
+      font-size: 12px;
+    }
+  }
+}
