@@ -1,14 +1,18 @@
 class TechgetsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:dashboard]
 
-  def index
+  def dashboard
     @users = User.all
 
     @geojson = Array.new
 
     @users.each do |user|
       techget_list = user.techgets.map do |techget|
-        { name: techget.name, description: techget.description, photo: techget.photo.url}
+        { name: techget.name,
+          description: techget.description,
+          photo: techget.photo.url,
+          url: "techgets/#{techget.id}"
+        }
       end
 
       @geojson << {
@@ -30,7 +34,11 @@ class TechgetsController < ApplicationController
     end
   end
 
+  def index
+  end
+
   def show
+    @techget = Techget.find(params[:id])
   end
 
   def new

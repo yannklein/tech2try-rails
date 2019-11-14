@@ -1,2 +1,38 @@
-<h1>Gadgets#show</h1>
-<p>Find me in app/views/gadgets/show.html.erb</p>
+<div class="banner-product">
+  <%= cl_image_tag @techget.photo, alt: @techget.name %>
+  <div class="banner-product-title">
+    <h1><%= @techget.name %></h1>
+    <%= link_to "Try this device", "#", class: 'btn btn-lg button-orange'%>
+  </div>
+</div>
+<div class="app-container">
+  <div class="product">
+    <div class="product-owner">
+      <p>A product from <strong><%= @techget.user.name %></strong></p>
+      <%= cl_image_tag @techget.user.photo, alt: @techget.user.name, class: 'avatar-large' %>
+    </div>
+    <div class="product-description">
+      <h2>About the <%= @techget.name %></h2>
+      <p><%= @techget.description %></p>
+    </div>
+    <div class="product-form">
+      <h2>Book it</h2>
+      <%= simple_form_for :search, method: "get" do |f| %>
+        <div class="form-row">
+          <div class="col-6">
+            <%= f.input :start, as: :string, label: false, placeholder: "From:", required: true, input_html: {class: "datepicker bg-white"} %>
+          </div>
+          <div class="col-6">
+            <%= f.input :end, as: :string, label: false, placeholder: "To:", required: true, input_html: {class: "datepicker bg-white"} %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-12">
+          <%= f.input :description, as: :text, label: false, placeholder: "Say hi and send him/her a message with valuable info about you!", required: true %>
+          </div>
+        </div>
+        <%= f.button :submit, "Ask #{@techget.user.name} to try the #{@techget.name}", class: "btn btn-block button-orange" %>
+      <% end %>
+    </div>
+  </div>
+</div>

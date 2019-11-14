@@ -35,14 +35,24 @@
   align-items: flex-end;
   justify-content: center;
   p {
+    text-decoration: none;
     border-radius: 4px;
     margin: 0;
     color: rgb(240,240,240);
     text-shadow: 0 0 4px rgba(240,240,240,0.2);
     font-size: 16px;
-    background-color: rgba(0,0,0,0.5);
+    background-color: $blue-50;
     padding: 4px;
   }
+}
+
+.marker-gadget-info:hover {
+  box-shadow: 0 8px 8px rgba(0,0,0,0.5);
+  transform: translate(0px, 0.5px);
+}
+
+.marker-gadget a:hover {
+  text-decoration: none!important;
 }
 
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
@@ -68,7 +78,7 @@
   background-color: $blue-50;
   h3 {
     color: white;
-    text-shadow: 0 0 4px rgba(0,0,0,0.7)
+    text-shadow: 0 0 4px $blue-50;
   }
 }
 

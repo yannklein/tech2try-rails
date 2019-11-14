@@ -1,0 +1,46 @@
+.banner-product {
+  display: flex;
+  width: 100%;
+  img {
+    width: 50%;
+    height: 300px;
+    object-fit: cover;
+    filter: brightness(90%);
+  }
+  box-shadow: 0 8px 8px rgba(0,0,0,0.2);
+}
+
+.banner-product-title {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  margin-left: 64px;
+  align-items: end;
+  h1 {
+    margin-bottom: 16px;
+  }
+}
+
+.product-description {
+  margin-bottom: 40px;
+}
+
+.product-owner {
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+  img {
+    margin-left: 24px;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.product-form {
+  width: 500px;
+}
+
+.product {
+  margin: 64px 0;
+}

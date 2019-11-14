@@ -19,8 +19,26 @@ Techget.destroy_all
 User.destroy_all
 
 puts "Create users"
-yann = User.create!(name: 'Yann', email: 'yann@gmail.com', password: '1234567890', long: 2.35, lat: 48.85)
-doug = User.create!(name: 'Doug', email: 'doug@gmail.com', password: '1234567890', long: 2.45, lat: 48.95)
+url = 'https://avatars1.githubusercontent.com/u/26819547?v=4'
+yann = User.new(
+  name: 'Yann',
+  email: 'yann@gmail.com',
+  password: '1234567890',
+  long: 2.35,
+  lat: 48.85,
+  )
+yann.remote_photo_url = url
+yann.save!
+url = 'https://avatars2.githubusercontent.com/u/25542223?v=4'
+doug = User.new(
+  name: 'Doug',
+  email: 'doug@gmail.com',
+  password: '1234567890',
+  long: 2.45,
+  lat: 48.95
+  )
+doug.remote_photo_url = url
+doug.save!
 
 puts "Create gadgets"
 # Leap motion

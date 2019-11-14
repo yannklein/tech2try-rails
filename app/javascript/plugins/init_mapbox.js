@@ -1,10 +1,7 @@
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 
-const userLocation = document.querySelector('#map').dataset.center;
-const markerIcon = document.querySelector('#map').dataset.icon;
-const locArray = [Number.parseFloat(userLocation.split(',')[1], 10), Number.parseFloat(userLocation.split(',')[0], 10)];
+const createMarker = (data, map, markerIcon) => {
 
-const createMarker = (data, map) => {
   // console.log(data);
   // add markers to map
   data.forEach((marker) => {
@@ -16,9 +13,12 @@ const createMarker = (data, map) => {
     // make a marker for each feature and add to the map
     console.log(marker.properties.description);
     const popupContent = marker.properties.description.map((content) => {
-      return `<div class="marker-gadget-info" style="background-image: url('${content.photo}')">
-        <p>${content.name}</p>
-      </div>`
+      return `
+      <a href="${content.url}">
+        <div class="marker-gadget-info" style="background-image: url('${content.photo}')">
+          <p>${content.name}</p>
+        </div>
+      </a>`
     });
 
     const popup = `
@@ -42,15 +42,19 @@ const createMarker = (data, map) => {
   });
 }
 
-const fetchMarkers = (map) => {
-  fetch('./techgets.json')
+const fetchMarkers = (map, markerIcon) => {
+  fetch('./dashboard.json')
   .then(response => response.json())
   .then((data) => {
-    createMarker(data, map);
+    createMarker(data, map, markerIcon);
   })
 }
 
-const initMapbox = () => {
+const initMapbox = (mapboxElement) => {
+  const userLocation = mapboxElement.dataset.center;
+  const markerIcon = mapboxElement.dataset.icon;
+  const locArray = [Number.parseFloat(userLocation.split(',')[1], 10), Number.parseFloat(userLocation.split(',')[0], 10)];
+
   mapboxgl.accessToken = 'pk.eyJ1IjoieWFubmx1Y2tsZWluIiwiYSI6ImNqcnZmeHQwaDAxb2o0NGx2bG1tOWgwNGIifQ.q4zhKOCoH7nDIJNm88leXg';
   const map = new mapboxgl.Map({
   container: 'map',
@@ -59,7 +63,7 @@ const initMapbox = () => {
   zoom: 10,
   });
 
-  fetchMarkers(map);
+  fetchMarkers(map, markerIcon);
 };
 
 export { initMapbox };
