@@ -1,8 +1,8 @@
-<div class="banner-product">
+<div class="banner">
   <%= cl_image_tag @techget.photo, alt: @techget.name %>
-  <div class="banner-product-title">
+  <div class="banner-title">
     <h1><%= @techget.name %></h1>
-    <%= link_to "Try this device", "#", class: 'btn btn-lg button-orange'%>
+    <%= link_to "Try this device", "#product-form-start", class: 'btn btn-lg button-orange'%>
   </div>
 </div>
 <div class="app-container">
@@ -17,18 +17,19 @@
     </div>
     <div class="product-form">
       <h2>Book it</h2>
-      <%= simple_form_for :search, method: "get" do |f| %>
+      <%= simple_form_for [@techget, @rental] do |f| %>
         <div class="form-row">
           <div class="col-6">
-            <%= f.input :start, as: :string, label: false, placeholder: "From:", required: true, input_html: {class: "datepicker bg-white"} %>
+            <%= f.input :start, as: :string, label: false, placeholder: "From:", required: true, input_html: {class: "datepicker bg-white", id: "product-form-start"} %>
           </div>
           <div class="col-6">
-            <%= f.input :end, as: :string, label: false, placeholder: "To:", required: true, input_html: {class: "datepicker bg-white"} %>
+            <%= f.input :end, as: :string, label: false, placeholder: "To:", required: true, input_html: {class: "datepicker bg-white", id: "product-form-end"} %>
           </div>
         </div>
         <div class="form-row">
           <div class="col-12">
-          <%= f.input :description, as: :text, label: false, placeholder: "Say hi and send him/her a message with valuable info about you!", required: true %>
+          <%= f.input :comment, as: :text, label: false, placeholder: "Say hi and send him/her a message with valuable info about you!", required: true, input_html: {id: "product-form-description"} %>
+          <%= f.input :techget_id, as: :hidden, value: @techget.id %>
           </div>
         </div>
         <%= f.button :submit, "Ask #{@techget.user.name} to try the #{@techget.name}", class: "btn btn-block button-orange" %>

@@ -4,15 +4,14 @@ class TechgetsController < ApplicationController
   def dashboard
     @users = User.all
 
-    @geojson = Array.new
+    @geojson = []
 
     @users.each do |user|
       techget_list = user.techgets.map do |techget|
         { name: techget.name,
           description: techget.description,
           photo: techget.photo.url,
-          url: "techgets/#{techget.id}"
-        }
+          url: "techgets/#{techget.id}" }
       end
 
       @geojson << {
@@ -39,6 +38,7 @@ class TechgetsController < ApplicationController
 
   def show
     @techget = Techget.find(params[:id])
+    @rental = Rental.new
   end
 
   def new

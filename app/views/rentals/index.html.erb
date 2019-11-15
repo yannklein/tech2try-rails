@@ -1,2 +1,36 @@
-<h1>Rentals#index</h1>
-<p>Find me in app/views/rentals/index.html.erb</p>
+<div class="banner">
+  <%= cl_image_tag current_user.photo, alt: current_user.name %>
+  <div class="banner-title">
+    <h1>Rental dashboard</h1>
+  </div>
+</div>
+<div class="app-container">
+  <h2>My rentals dashboard</h2>
+    <div class="cards-rental">
+      <% current_user.techgets.reject { |techget| techget.rentals.empty? }.each do |rented_techget| %>
+        <div class="card-rental">
+          <div class="card-rental-header">
+            <%= cl_image_tag rented_techget.photo, alt: rented_techget.name %>
+            <p><%= rented_techget.name %></p>
+          </div>
+          <div class="card-rental-body">
+            <% rented_techget.rentals.each do |rental| %>
+              <div class="card-rental-item">
+                <div class="card-rental-item-date">
+                  <div>
+                    <%= rental.start.strftime('%b %d').capitalize %> - <%= rental.end.strftime('%b %d').capitalize %>
+                  </div>
+                  <div>
+                    <%= rental.start.strftime('%Y') %>
+                  </div>
+                </div>
+                <%= cl_image_tag rental.rentee.photo, alt: rental.rentee.name, class: "avatar"%>
+                <p><%= rental.comment %></p>
+                <%= link_to "Confirm", "#", class: "btn button-orange" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</div>
