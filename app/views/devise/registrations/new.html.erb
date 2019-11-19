@@ -26,11 +26,10 @@
     <div class="form-inputs">
 
       <div class="registration-pic">
-        <%= cl_image_tag "https://loremflickr.com/150/150/kitten", :format=>"jpg", :gravity=>"faces", class: 'signup-picture avatar-bordered'%>
         <%= f.input :photo,
-                    required: false,
+                    required: true,
                     autofocus: true,
-                    label: "Don't like kittens? Change your picture:",
+                    label: "Upload you photo:",
                     class: 'signup-picture-input btn button-text-light-blue' %>
       </div>
       <%= f.input :name,

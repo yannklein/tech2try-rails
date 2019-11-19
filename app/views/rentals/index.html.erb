@@ -12,8 +12,7 @@
 <div class="app-container">
 
   <h2 id="devices">My devices</h2>
-
-  <div class="cards-techget">
+  <div class="card-techget">
     <% current_user.techgets.each do |techget| %>
     <a href="#<%= techget.name %>">
       <div class="marker-gadget-info" style="background-image: url('<%= techget.photo %>')">
@@ -29,6 +28,13 @@
   </div>
 
   <h2 id="rentals">My rentals</h2>
+  <% if current_user.techgets.empty? %>
+    <div class="card-rental">
+      <div class="card-rental-body">
+          You didn't share any device yet. <%= link_to "Share your first device", new_techget_path %>!
+      </div>
+    </div>
+  <% end %>
   <div class="cards-rental">
     <% current_user.techgets.each do |techget| %>
       <div class="card-rental" id="<%= techget.name %>">
@@ -71,40 +77,42 @@
       </div>
     <% end %>
   </div>
-
   <h2 id="rented">Device I'm lending</h2>
-  <div class="cards-rental">
-    <% @rentals
-        .select { |rental| rental.rentee == current_user }
-        .each do |my_rental| %>
-      <div class="card-rental" id="<%= my_rental.techget.name %>">
-        <div class="card-rental-body">
-            <div class="card-rental-item">
-              <div class="card-rental-item-date">
-                <div>
-                  <p>From</p>
-                  <p>To</p>
-                </div>
-                <div>
-                  <p>
-                    <strong><%= my_rental.start.strftime('%b %d %Y').capitalize %></strong>
-                  </p>
-                  <p>
-                    <strong><%= my_rental.end.strftime('%b %d %Y').capitalize %></strong>
-                  </p>
-                </div>
-                <div>
-                  (<%= (my_rental.end - my_rental.start).to_i + 1 %> days)
-                </div>
-              </div>
-              <%= cl_image_tag my_rental.techget.photo, alt: my_rental.techget.name, class: "avatar" %>
-              <p><%= my_rental.techget.name %></p>
-              <h3 class="badge badge-info">
-                  Not confirmed yet
-              </h3>
+  <% if @rentals.select { |rental| rental.rentee == current_user }.empty? %>
+    <div class="card-rental">
+      <div class="card-rental-body">
+        You are not renting any device yet. Find some on the <%= link_to "map", root_path %>!
+      </div>
+    </div>
+  <% end %>
+  <% @rentals.select { |rental| rental.rentee == current_user }.each do |my_rental| %>
+    <div class="card-rental" id="<%= my_rental.techget.name %>">
+      <div class="card-rental-body">
+        <div class="card-rental-item">
+          <div class="card-rental-item-date">
+            <div>
+              <p>From</p>
+              <p>To</p>
             </div>
+            <div>
+              <p>
+                <strong><%= my_rental.start.strftime('%b %d %Y').capitalize %></strong>
+              </p>
+              <p>
+                <strong><%= my_rental.end.strftime('%b %d %Y').capitalize %></strong>
+              </p>
+            </div>
+            <div>
+              (<%= (my_rental.end - my_rental.start).to_i + 1 %> days)
+            </div>
+          </div>
+          <%= cl_image_tag my_rental.techget.photo, alt: my_rental.techget.name, class: "avatar" %>
+          <p><%= my_rental.techget.name %></p>
+          <h3 class="badge badge-info">
+              Not confirmed yet
+          </h3>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

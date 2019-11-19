@@ -2,15 +2,15 @@ h1.mobile {
   display: none;
 }
 
-.card-techget {
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  background-color: $blue-50;
-  h3 {
-    color: white;
-    text-shadow: 0 0 4px $blue-50;
-  }
-}
+// .card-techget {
+//   text-align: center;
+//   font-family: 'Open Sans', sans-serif;
+//   background-color: $blue-50;
+//   h3 {
+//     color: white;
+//     text-shadow: 0 0 4px $blue-50;
+//   }
+// }
 
 .button-delete {
   position: absolute;
@@ -73,6 +73,7 @@ h1.mobile {
   background-color: white;
   border-radius: 4px;
   padding: 16px;
+  margin-bottom: 24px;
   .card-rental-header {
     display: flex;
     border-bottom: 1px solid rgb(200,200,200);
@@ -111,6 +112,17 @@ h1.mobile {
       }
     }
   }
+}
+
+.card-techget {
+  padding: 16px;
+  display: grid;
+  grid-gap: 32px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  a {
+    text-decoration: none;
+  }
+  margin-bottom: 24px;
 }
 
 @media screen and (max-width:800px) {
