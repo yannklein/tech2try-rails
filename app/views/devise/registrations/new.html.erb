@@ -1,3 +1,22 @@
+<style>
+        .registration-pic {
+          display: flex;
+          align-items: center;
+          padding: 5px;
+        }
+        .registration-pic  img {
+            margin-right: 16px;
+          }
+        }
+        @media(max-width: 576px){
+          .registration-pic {
+            flex-direction: column;
+          }
+          .registration-pic img {
+            margin-bottom: 5px;
+          }
+        };
+      </style>
 <div class="app-container small">
   <h2 class="new-form-title">Sign up</h2>
 
@@ -5,6 +24,7 @@
     <%= f.error_notification %>
 
     <div class="form-inputs">
+
       <div class="registration-pic">
         <%= cl_image_tag "https://loremflickr.com/150/150/kitten", :format=>"jpg", :gravity=>"faces", class: 'signup-picture avatar-bordered'%>
         <%= f.input :photo,
@@ -28,7 +48,7 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Go go go!", class: 'btn btn-orange'  %>
+      <%= f.button :submit, "Go go go!", class: 'btn button-orange'  %>
     </div>
   <% end %>
 

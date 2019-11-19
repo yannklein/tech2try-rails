@@ -48,10 +48,10 @@ ActiveRecord::Schema.define(version: 2019_11_15_072833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "location"
-    t.string "name"
+    t.string "name", null: false
     t.float "lat"
     t.float "long"
-    t.string "photo"
+    t.string "photo", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

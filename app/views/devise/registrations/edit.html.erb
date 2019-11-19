@@ -11,7 +11,7 @@
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
-
+      <%= f.input :photo, required: true %>
       <%= f.input :password,
                   hint: "leave it blank if you don't want to change it",
                   required: false, label: 'New Password',
@@ -26,7 +26,7 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Update", class: 'btn btn-orange' %>
+      <%= f.button :submit, "Update", class: 'btn button-orange' %>
       <%= link_to "Back without update", :back, class: 'btn btn-secondary' %>
     </div>
   <% end %>
