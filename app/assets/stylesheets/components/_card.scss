@@ -2,6 +2,16 @@ h1.mobile {
   display: none;
 }
 
+.card-techget {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  background-color: $blue-50;
+  h3 {
+    color: white;
+    text-shadow: 0 0 4px $blue-50;
+  }
+}
+
 .button-delete {
   position: absolute;
   top: -8px;
@@ -54,6 +64,11 @@ h1.mobile {
   }
 }
 
+.card-techget-empty {
+  background-color: $light-gray;
+  border: 2px dashed $blue-50;
+}
+
 .card-rental {
   background-color: white;
   border-radius: 4px;
@@ -61,6 +76,7 @@ h1.mobile {
   .card-rental-header {
     display: flex;
     border-bottom: 1px solid rgb(200,200,200);
+    padding: 16px;
     img {
       height: 40px;
       margin-right: 16px;
@@ -70,13 +86,20 @@ h1.mobile {
     padding: 16px;
     .card-rental-item {
       display: flex;
+      justify-content: space-between;
       align-items: center;
       background-color: $light-gray;
       padding: 16px;
       .card-rental-item-date {
-        text-align: center;
-        width: 232px;
-        margin-right: 16px;
+        display: flex;
+        align-items: center;
+        background-color: $blue-50;
+        color: white;
+        padding: 8px 16px;
+        margin-right: 8px;
+        border-radius: 4px;
+        width: 270px;
+        flex-shrink: 0;
       }
       img {
         margin-right: 16px;
@@ -84,6 +107,7 @@ h1.mobile {
       p {
         margin: 0;
         margin-right: 16px;
+        flex-grow: 1;
       }
     }
   }

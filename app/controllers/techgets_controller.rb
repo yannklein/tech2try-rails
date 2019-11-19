@@ -42,9 +42,14 @@ class TechgetsController < ApplicationController
   end
 
   def new
+    @techget = Techget.new
   end
 
   def create
+    @techget = Techget.new(techget_params)
+    @techget.user = current_user
+    @techget.save
+    redirect_to rentals_path
   end
 
   def update
@@ -54,5 +59,11 @@ class TechgetsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def techget_params
+    params.require(:techget).permit(:name, :description, :photo)
   end
 end

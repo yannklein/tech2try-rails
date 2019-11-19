@@ -1,2 +1,10 @@
-<h1>Gadgets#new</h1>
-<p>Find me in app/views/gadgets/new.html.erb</p>
+<div class="app-container small">
+  <h2 class="new-form-title">Share a new device ⌚️</h2>
+  <%= simple_form_for @techget, html: {class: 'new-form-content'} do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :name, label: 'Choose a great title:', required: true %>
+    <%= f.input :description, label: 'Take a breath and go for a cool description:', as: :text, :input_html => {:style => 'width: 100%', :rows => 5 }, required: true  %>
+    <%= f.input :photo, label: 'Now upload your photo 😎👇', required: true, hint: "Get a high quality photo for great results (above 800x600 pixels)" %>
+    <%= f.button :submit, value: 'Share that device', class: 'btn button-orange' %>
+<% end %>
+</div>
