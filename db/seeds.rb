@@ -24,8 +24,7 @@ yann = User.new(
   name: 'Yann',
   email: 'yann@gmail.com',
   password: '1234567890',
-  long: 2.35,
-  lat: 48.85,
+  location: "Shibuya"
   )
 yann.remote_photo_url = url
 yann.save!
@@ -34,8 +33,7 @@ doug = User.new(
   name: 'Doug',
   email: 'doug@gmail.com',
   password: '1234567890',
-  long: 2.45,
-  lat: 48.95
+  location: "Meguro"
   )
 doug.remote_photo_url = url
 doug.save!

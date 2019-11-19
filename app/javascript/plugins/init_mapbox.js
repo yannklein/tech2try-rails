@@ -11,7 +11,7 @@ const createMarker = (data, map, markerIcon) => {
     el.className = 'marker';
 
     // make a marker for each feature and add to the map
-    console.log(marker.properties.description);
+    // console.log(marker.properties.description);
     const popupContent = marker.properties.description.map((content) => {
       return `
       <a href="${content.url}">
@@ -54,7 +54,8 @@ const initMapbox = (mapboxElement) => {
   const userLocation = mapboxElement.dataset.center;
   const markerIcon = mapboxElement.dataset.icon;
   const locArray = [Number.parseFloat(userLocation.split(',')[1], 10), Number.parseFloat(userLocation.split(',')[0], 10)];
-
+  console.log(userLocation);
+  console.log(locArray);
   mapboxgl.accessToken = 'pk.eyJ1IjoieWFubmx1Y2tsZWluIiwiYSI6ImNqcnZmeHQwaDAxb2o0NGx2bG1tOWgwNGIifQ.q4zhKOCoH7nDIJNm88leXg';
   const map = new mapboxgl.Map({
   container: 'map',

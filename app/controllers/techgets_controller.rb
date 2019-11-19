@@ -18,7 +18,7 @@ class TechgetsController < ApplicationController
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [user.long, user.lat]
+          coordinates: [user.longitude, user.latitude]
         },
         properties: {
           title: "#{user.name}'s devices",

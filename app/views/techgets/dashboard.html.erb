@@ -14,9 +14,9 @@
       </div>
     </div>
   </div>
-  <div id="map" data-center='48.85,2.35' data-icon='<%= asset_path('marker.png') %>' ></div>
+  <div id="map" data-center='<%= "#{request.safe_location.latitude},#{request.safe_location.longitude}" %>' data-icon='<%= asset_path('marker.png') %>' ></div>
 <% else %>
-  <div id="map" data-center='<%= current_user.lat %>,<%= current_user.long %>' data-icon='<%= asset_path('marker.png') %>' ></div>
+  <div id="map" data-center='<%= current_user.latitude %>,<%= current_user.longitude %>' data-icon='<%= asset_path('marker.png') %>' ></div>
 <% end %>
 
 <script>
