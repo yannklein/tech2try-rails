@@ -4,16 +4,19 @@ import rangePlugin from "flatpickr/dist/plugins/rangePlugin"
 
 
 const initFlatpickr = () => {
-  flatpickr("#product-form-start", {
+  flatpickr("#rental_start", {
     altInput: true,
-    plugins: [new rangePlugin({ input: "#product-form-end"})]
+    plugins: [new rangePlugin({ input: "#rental_end"})]
   })
 
-  document.querySelector("#product-form-start").addEventListener("change", (event) => {
-    window.location.href = '#product-form-end';
+  // Create id for the start input as the range plugin is messing with it!
+  document.querySelector(".rental_start .input").id = "product-form-start";
+
+  document.querySelector("#rental_start").addEventListener("change", (event) => {
+    window.location.href = '#rental_end';
   });
 
-  document.querySelector("#product-form-end").addEventListener("change", (event) => {
+  document.querySelector("#rental_end").addEventListener("change", (event) => {
     window.location.href = '#product-form-description';
   });
 }

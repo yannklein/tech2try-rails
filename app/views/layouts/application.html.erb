@@ -31,7 +31,9 @@
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
     <%= yield %>
+    <%= render 'shared/chatbox' %>
     <%= javascript_include_tag 'application' %>
+    <%= yield :after_js %>
     <%= javascript_pack_tag 'application' %>
   </body>
 </html>

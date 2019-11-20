@@ -1,6 +1,17 @@
 .button-orange {
   background-color: $orange;
   color: white;
+  margin: 8px;
+  display: block;
+  min-width: 120px;
+  margin: 8px 0;
+  border-radius: 4px;
+  padding: 4px 16px;
+  text-decoration: none!important;
+}
+
+.button-orange:hover {
+  color: black;
 }
 
 .button-text-light-blue {

@@ -1,11 +1,11 @@
 class TechgetsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:dashboard]
+  before_action :set_chat_room
 
   def dashboard
     @users = User.all
 
     @geojson = []
-
     @users.each do |user|
       techget_list = user.techgets.map do |techget|
         { name: techget.name,
@@ -13,7 +13,6 @@ class TechgetsController < ApplicationController
           photo: techget.photo.url,
           url: "techgets/#{techget.id}" }
       end
-
       @geojson << {
         type: 'Feature',
         geometry: {
@@ -65,5 +64,9 @@ class TechgetsController < ApplicationController
 
   def techget_params
     params.require(:techget).permit(:name, :description, :photo)
+  end
+
+  def set_chat_room
+    @chat_room = current_user.chat_room
   end
 end

@@ -20,10 +20,10 @@
       <%= simple_form_for [@techget, @rental] do |f| %>
         <div class="form-row">
           <div class="col-6">
-            <%= f.input :start, as: :string, label: false, placeholder: "From:", required: true, input_html: {class: "datepicker bg-white", id: "product-form-start"} %>
+            <%= f.input :start, as: :string, label: false, placeholder: "From:", required: true, input_html: {class: "datepicker bg-white"} %>
           </div>
           <div class="col-6">
-            <%= f.input :end, as: :string, label: false, placeholder: "To:", required: true, input_html: {class: "datepicker bg-white", id: "product-form-end"} %>
+            <%= f.input :end, as: :string, label: false, placeholder: "To:", required: true, input_html: {class: "datepicker bg-white"} %>
           </div>
         </div>
         <div class="form-row">

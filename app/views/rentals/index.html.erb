@@ -69,7 +69,17 @@
                 </div>
                 <%= cl_image_tag rental.rentee.photo, alt: rental.rentee.name, class: "avatar"%>
                 <p><%= rental.comment %></p>
-                <%= link_to "Confirm", "#", class: "btn button-orange" %>
+                  <div  class="text-center">
+                <% if rental.confirmed %>
+                    <%= link_to "Talk about it", update_chatbox_path(rental), class: "button-orange" %>
+                    <h3 class="badge badge-success m-0">
+                        Confirmed
+                    </h3>
+                <% else %>
+                  <%= link_to "Talk about it", update_chatbox_path(rental), class: "button-orange" %>
+                  <%= link_to "Confirm", confirm_path(rental), class: "button-orange" %>
+                <% end %>
+                  </div>
               </div>
             <% end %>
           <% end %>
@@ -108,9 +118,18 @@
           </div>
           <%= cl_image_tag my_rental.techget.photo, alt: my_rental.techget.name, class: "avatar" %>
           <p><%= my_rental.techget.name %></p>
-          <h3 class="badge badge-info">
-              Not confirmed yet
-          </h3>
+          <div class="text-center">
+            <%= link_to "Talk about it", update_chatbox_path(my_rental), class: "button-orange" %>
+            <% if my_rental.confirmed %>
+              <h3 class="badge badge-success m-0">
+                  Confirmed
+              </h3>
+            <% else %>
+              <h3 class="badge badge-info m-0">
+                  Not confirmed yet
+              </h3>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
