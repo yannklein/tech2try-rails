@@ -1,87 +1,89 @@
-<div class="chatbox-container">
-  <div class="chatbox-current-container">
-    <div class="chat-header">
-      <h4>#<%= @chat_room.name %></h4>
+<% unless @chat_room.nil? %>
+  <div class="chatbox-container">
+    <div class="chatbox-current-container">
+      <div class="chat-header">
+        <h4>#<%= @chat_room.name %></h4>
+      </div>
+      <div class="chat-items d-none">
+        <% @chat_room.messages.each do |message| %>
+        <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
+        <% end %>
+      </div>
+      <div id="create-message" class="d-none">
+        <%=  simple_form_for [ @chat_room, Message.new ], remote: true do |f| %>
+        <%= f.input :content, label: false %>
+        <% end %>
+      </div>
     </div>
-    <div class="chat-items d-none">
-      <% @chat_room.messages.each do |message| %>
-      <%= render "messages/message", message: message, user_is_messages_author: message.user == current_user %>
-      <% end %>
-    </div>
-    <div id="create-message" class="d-none">
-      <%=  simple_form_for [ @chat_room, Message.new ], remote: true do |f| %>
-      <%= f.input :content, label: false %>
-      <% end %>
+    <div class="chatbox-list-container">
+      <div class="chat-header">
+        <i class="fas fa-comments"></i>
+      </div>
+      <div class="chat-items d-none">
+      </div>
     </div>
   </div>
-  <div class="chatbox-list-container">
-    <div class="chat-header">
-      <i class="fas fa-comments"></i>
-    </div>
-    <div class="chat-items d-none">
-    </div>
-  </div>
-</div>
 
-<% content_for :after_js do %>
+  <% content_for :after_js do %>
 
-<script>
-  //Chat list notification check
-  const itemsContainer = document.querySelector('.chatbox-list-container .chat-items');
-  <% ChatRoom.all.each do |chat_room| %>
-    <% unless chat_room.rental.nil? || chat_room == @chat_room %>
-      itemsContainer.insertAdjacentHTML('beforeend', '<%= link_to "# #{chat_room.name}", update_chatbox_path(chat_room.rental), class: "chatbox-list-room chat_room_#{chat_room.id}"  %>')
-      <% if chat_room.rental.renter == current_user ||  chat_room.rental.rentee == current_user %>
-        App['chat_room_<%= chat_room.id %>'] = App.cable.subscriptions.create(
-          { channel: 'ChatRoomsChannel', chat_room_id: <%= chat_room.id %> },
-          {
-            received: (data) => {
-              // console.log('event on channels');
-              if (data.current_user_id !== <%= current_user.id %>) {
-                document.querySelector('.chatbox-list-container .chat-header').classList.add('red');
-                document.querySelector('.chatbox-list-container .chat_room_<%= chat_room.id %>').classList.add('red');
+  <script>
+    //Chat list notification check
+    const itemsContainer = document.querySelector('.chatbox-list-container .chat-items');
+    <% ChatRoom.all.each do |chat_room| %>
+      <% unless chat_room.rental.nil? || chat_room == @chat_room %>
+        itemsContainer.insertAdjacentHTML('beforeend', '<%= link_to "# #{chat_room.name}", update_chatbox_path(chat_room.rental), class: "chatbox-list-room chat_room_#{chat_room.id}"  %>')
+        <% if chat_room.rental.renter == current_user ||  chat_room.rental.rentee == current_user %>
+          App['chat_room_<%= chat_room.id %>'] = App.cable.subscriptions.create(
+            { channel: 'ChatRoomsChannel', chat_room_id: <%= chat_room.id %> },
+            {
+              received: (data) => {
+                // console.log('event on channels');
+                if (data.current_user_id !== <%= current_user.id %>) {
+                  document.querySelector('.chatbox-list-container .chat-header').classList.add('red');
+                  document.querySelector('.chatbox-list-container .chat_room_<%= chat_room.id %>').classList.add('red');
+                }
               }
             }
-          }
-        );
+          );
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-  // Current chat messaging
-  scrollLastMessageIntoView();
-  App['chat_room_<%= @chat_room.id %>'] = App.cable.subscriptions.create(
-    { channel: 'ChatRoomsChannel', chat_room_id: <%= @chat_room.id %> },
-    {
-      received: (data) => {
-        if (data.current_user_id !== <%= current_user.id %>) {
-          const messagesContainer = document.querySelector('.chatbox-current-container .chat-items');
-          messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
-          scrollLastMessageIntoView();
-          if (document.querySelector('.chatbox-current-container .chat-items').classList.contains('d-none')) {
-            document.querySelector('.chatbox-current-container .chat-header').classList.add('red');
+    // Current chat messaging
+    scrollLastMessageIntoView();
+    App['chat_room_<%= @chat_room.id %>'] = App.cable.subscriptions.create(
+      { channel: 'ChatRoomsChannel', chat_room_id: <%= @chat_room.id %> },
+      {
+        received: (data) => {
+          if (data.current_user_id !== <%= current_user.id %>) {
+            const messagesContainer = document.querySelector('.chatbox-current-container .chat-items');
+            messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+            scrollLastMessageIntoView();
+            if (document.querySelector('.chatbox-current-container .chat-items').classList.contains('d-none')) {
+              document.querySelector('.chatbox-current-container .chat-header').classList.add('red');
+            }
           }
         }
       }
-    }
-  );
+    );
 
-  // Display/hide chatbox
-  const openedChat = document.querySelector('.chatbox-current-container');
-  openedChat.querySelector('.chat-header').addEventListener("click", (event) => {
-    openedChat.querySelector('.chat-items').classList.toggle('d-none');
-    openedChat.querySelector('#create-message').classList.toggle('d-none');
-  });
-  // Handle chat list
-  const listedChat = document.querySelector('.chatbox-list-container');
-  const chatboxListRooms = listedChat.querySelectorAll('.chat-items .chatbox-list-room');
-  listedChat.querySelector('.chat-header').addEventListener("click", (event) => {
-    listedChat.querySelector('.chat-items').classList.toggle('d-none');
-    // un-red chat icon if clicked
-    chatboxListRooms.forEach((room) => {
-      if (room.classList.contains('red')) {
-        room.classList.remove('red');
-      }
+    // Display/hide chatbox
+    const openedChat = document.querySelector('.chatbox-current-container');
+    openedChat.querySelector('.chat-header').addEventListener("click", (event) => {
+      openedChat.querySelector('.chat-items').classList.toggle('d-none');
+      openedChat.querySelector('#create-message').classList.toggle('d-none');
     });
-  });
-</script>
+    // Handle chat list
+    const listedChat = document.querySelector('.chatbox-list-container');
+    const chatboxListRooms = listedChat.querySelectorAll('.chat-items .chatbox-list-room');
+    listedChat.querySelector('.chat-header').addEventListener("click", (event) => {
+      listedChat.querySelector('.chat-items').classList.toggle('d-none');
+      // un-red chat icon if clicked
+      chatboxListRooms.forEach((room) => {
+        if (room.classList.contains('red')) {
+          room.classList.remove('red');
+        }
+      });
+    });
+  </script>
+  <% end %>
 <% end %>
