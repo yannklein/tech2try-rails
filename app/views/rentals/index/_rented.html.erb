@@ -1,0 +1,47 @@
+<h2 id="rented">Device I'm lending</h2>
+  <% if @rentals.select { |rental| rental.rentee == current_user }.empty? %>
+    <div class="card-rental">
+      <div class="card-rental-body">
+        You are not renting any device yet. Find some on the <%= link_to "map", root_path %>!
+      </div>
+    </div>
+  <% end %>
+  <% @rentals.select { |rental| rental.rentee == current_user }.each do |my_rental| %>
+    <div class="card-rental" id="<%= my_rental.techget.name %>">
+      <div class="card-rental-body">
+        <div class="card-rental-item">
+          <div class="card-rental-item-date">
+            <div>
+              <p>From</p>
+              <p>To</p>
+            </div>
+            <div>
+              <p>
+                <strong><%= my_rental.start.strftime('%b %d %Y').capitalize %></strong>
+              </p>
+              <p>
+                <strong><%= my_rental.end.strftime('%b %d %Y').capitalize %></strong>
+              </p>
+            </div>
+            <div>
+              (<%= (my_rental.end - my_rental.start).to_i + 1 %> days)
+            </div>
+          </div>
+          <%= cl_image_tag my_rental.techget.photo, alt: my_rental.techget.name, class: "avatar" %>
+          <p><%= my_rental.techget.name %></p>
+          <div class="text-center">
+            <%= link_to "Talk about it", update_chatbox_path(my_rental), class: "button-orange" %>
+            <% if my_rental.confirmed %>
+              <h3 class="badge badge-success m-0">
+                  Confirmed
+              </h3>
+            <% else %>
+              <h3 class="badge badge-info m-0">
+                  Not confirmed yet
+              </h3>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>

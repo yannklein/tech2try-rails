@@ -31,7 +31,9 @@
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
     <%= yield %>
-    <%= render 'shared/chatbox' %>
+    <% unless @first_visit || current_user.nil? %>
+      <%= render 'shared/chatbox' %>
+    <% end %>
     <%= javascript_include_tag 'application' %>
     <%= yield :after_js %>
     <%= javascript_pack_tag 'application' %>

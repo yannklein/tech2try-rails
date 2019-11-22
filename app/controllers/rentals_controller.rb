@@ -15,7 +15,7 @@ class RentalsController < ApplicationController
     @rental.techget = Techget.find(params[:techget_id])
     @rental.renter = @rental.techget.user
     @rental.save
-    redirect_to techget_path(@rental.techget)
+    redirect_to rentals_path
   end
 
   def confirm

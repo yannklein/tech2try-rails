@@ -1,0 +1,15 @@
+<h2 id="devices">My devices</h2>
+  <div class="card-techget">
+    <% current_user.techgets.each do |techget| %>
+    <a href="#<%= techget.name %>">
+      <div class="marker-gadget-info" style="background-image: url('<%= techget.photo %>')">
+        <p><%= techget.name %></p>
+      </div>
+    </a>
+    <% end %>
+    <%= link_to new_techget_path do %>
+      <div class="marker-gadget-info card-techget-empty">
+        <p>Add a device</p>
+      </div>
+    <% end %>
+  </div>

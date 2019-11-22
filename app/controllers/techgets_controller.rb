@@ -67,6 +67,6 @@ class TechgetsController < ApplicationController
   end
 
   def set_chat_room
-    @chat_room = current_user.chat_room
+    @chat_room = current_user.chat_room unless current_user.nil?
   end
 end

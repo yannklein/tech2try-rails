@@ -1,6 +1,6 @@
 function insertMessage(message) {
   console.log("top");
-  const messagesContainer = document.querySelector('.messages');
+  const messagesContainer = document.querySelector('.chatbox-current-container .chat-items');
   messagesContainer.insertAdjacentHTML('beforeend', message);
   const input = document.querySelector('#message_content');
   input.value = '';

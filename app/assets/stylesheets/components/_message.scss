@@ -1,4 +1,4 @@
-.messages {
+.chat-items {
   font-size: 14px;
   color: #868686;
   background-color: #ffffff;
@@ -53,6 +53,7 @@ input.form-control {
   }
 }
 .chat-header {
+  height: 40px;
   background-color: $light-blue;
   color: white;
   padding: 10px 20px;
@@ -60,6 +61,9 @@ input.form-control {
   h4 {
     margin: 0;
     font-size: 16px;
+  }
+  &.red {
+    background-color: $orange;
   }
   &:hover {
     cursor: pointer;
@@ -70,4 +74,25 @@ input.form-control {
   position: fixed;
   bottom: 0px;
   right: 16px;
+  display: flex;
+  align-items: flex-end;
+  .chatbox-list-container {
+    margin-left: 4px;
+    .chat-items {
+      padding: 8px;
+      .chatbox-list-room {
+        margin: 8px 0;
+        color: black;
+        text-decoration: none;
+        display: block;
+        &:hover {
+          color: $light-blue;
+        }
+        &.red {
+          color: $orange;
+        }
+      }
+    }
+  }
 }
+
