@@ -27,25 +27,25 @@
   <% content_for :after_js do %>
 
   <script>
-    //Chat list notification check
+    // Chat list notification check
     const itemsContainer = document.querySelector('.chatbox-list-container .chat-items');
-    <% ChatRoom.all.each do |chat_room| %>
-      <% unless chat_room.rental.nil? || chat_room == @chat_room %>
-        itemsContainer.insertAdjacentHTML('beforeend', '<%= link_to "# #{chat_room.name}", update_chatbox_path(chat_room.rental), class: "chatbox-list-room chat_room_#{chat_room.id}"  %>')
-        <% if chat_room.rental.renter == current_user ||  chat_room.rental.rentee == current_user %>
-          App['chat_room_<%= chat_room.id %>'] = App.cable.subscriptions.create(
-            { channel: 'ChatRoomsChannel', chat_room_id: <%= chat_room.id %> },
-            {
-              received: (data) => {
-                // console.log('event on channels');
-                if (data.current_user_id !== <%= current_user.id %>) {
-                  document.querySelector('.chatbox-list-container .chat-header').classList.add('red');
-                  document.querySelector('.chatbox-list-container .chat_room_<%= chat_room.id %>').classList.add('red');
-                }
+    <% current_user.rentals.each do |rental| %>
+      <% if rental.nil? %>
+        itemsContainer.insertAdjacentHTML('beforeend', '<div class: "chatbox-list-room"> No chat on-going for you <%= current_user.name %>!</div>');
+      <% elsif rental.chat_room != @chat_room %>
+        itemsContainer.insertAdjacentHTML('beforeend', '<%= link_to "# #{rental.chat_room.name}", update_chatbox_path(rental.chat_room.rental), class: "chatbox-list-room chat_room_#{rental.chat_room.id}"  %>')
+        App['chat_room_<%= rental.chat_room.id %>'] = App.cable.subscriptions.create(
+          { channel: 'ChatRoomsChannel', chat_room_id: <%= rental.chat_room.id %> },
+          {
+            received: (data) => {
+              // console.log('event on channels');
+              if (data.current_user_id !== <%= current_user.id %>) {
+                document.querySelector('.chatbox-list-container .chat-header').classList.add('red');
+                document.querySelector('.chatbox-list-container .chat_room_<%= rental.chat_room.id %>').classList.add('red');
               }
             }
-          );
-        <% end %>
+          }
+        );
       <% end %>
     <% end %>
     // Current chat messaging
@@ -65,6 +65,11 @@
         }
       }
     );
+
+    const messagesContainer = document.querySelector('.chatbox-current-container .chat-items');
+    if(messagesContainer.innerText.split(' ').join('') === '\n') {
+      messagesContainer.insertAdjacentHTML('beforeend', 'Say hi and talk about the <%= @chat_room.rental.techget.name %>!');
+    }
 
     // Display/hide chatbox
     const openedChat = document.querySelector('.chatbox-current-container');
