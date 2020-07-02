@@ -32,7 +32,7 @@
     <% current_user.rentals.each do |rental| %>
       <% if rental.nil? %>
         itemsContainer.insertAdjacentHTML('beforeend', '<div class: "chatbox-list-room"> No chat on-going for you <%= current_user.name %>!</div>');
-      <% elsif rental.chat_room != @chat_room %>
+      <% elsif rental.chat_room && rental.chat_room != @chat_room %>
         itemsContainer.insertAdjacentHTML('beforeend', '<%= link_to "# #{rental.chat_room.name}", update_chatbox_path(rental.chat_room.rental), class: "chatbox-list-room chat_room_#{rental.chat_room.id}"  %>')
         App['chat_room_<%= rental.chat_room.id %>'] = App.cable.subscriptions.create(
           { channel: 'ChatRoomsChannel', chat_room_id: <%= rental.chat_room.id %> },
